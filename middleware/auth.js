@@ -1,4 +1,4 @@
-// Imports jwt library and userModel
+// Imports jwt library
 const jwt = require('jsonwebtoken');
 
 // Creates authentification function to protect endpoint

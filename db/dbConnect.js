@@ -1,4 +1,4 @@
-// Require ODM Mongoose
+// Requires ODM Mongoose and environment variables configuration
 const mongoose = require("mongoose");
 require('dotenv').config()
 

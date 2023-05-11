@@ -21,19 +21,18 @@ router.post("/register", async (req, res) => {
         if (!email || !password) {
             return res.status(400).json({ message: 'Please enter all the details' })
         }
-        // Checks that email provided is already registered
+        // Checks if email provided is already registered
         const userExist = await userModel.findOne({ email: req.body.email });
         if (userExist) {
             return res.status(400).json({ message: 'User already exist with the given email' })
         }
-        // Hash the password with bcrypt
+        // Hashes the password with bcrypt
         const salt = await bcrypt.genSalt(10);
         const hashPassword = await bcrypt.hash(req.body.password, salt);
         req.body.password = hashPassword;
         const user = new userModel(req.body);
         // Saves new user
         await user.save();
-        // Creates and assigns a token
         return res.status(200).json({ message: 'User registered successfully' })
     } catch (error) {
         res.status(400).send();
@@ -49,20 +48,20 @@ router.post('/login', async (req, res) => {
             return res.status(400).json({ message: 'Please enter all the details' })
         }
         // Checks that the email exists
-        const userExist = await userModel.findOne({email:req.body.email});
+        const userExist = await userModel.findOne({ email:req.body.email });
         if(!userExist){
-            return res.status(400).json({message:'Wrong email'})
+            return res.status(400).json({ message:'Wrong email' })
         }
-        //Checks that the password is correct
+        // Checks that the password is correct
         const isPasswordMatched = await bcrypt.compare(password,userExist.password);
         if(!isPasswordMatched){
-            return res.status(400).json({message:'Wrong password'});
+            return res.status(400).json({ message:'Wrong password' });
         }
         // Creates and assigns a token
         const token = jwt.sign({ id: userExist._id }, process.env.SECRET_KEY, {
             expiresIn: process.env.JWT_EXPIRE,
         });
-        return res.status(200).json({ message:'LoggedIn Successfully', 'token': token  })
+        return res.status(200).json({ message:'LoggedIn Successfully', 'token': token })
     } catch (error) {
         res.status(400).send();
     }
@@ -73,11 +72,11 @@ router.get('/users', isAuthenticated, async (req, res) => {
     try {
         const user = await userModel.find();
         if (!user) {
-            return res.json({message:'No user found'})
+            return res.json({ message:'No user found' })
         }
-        return res.json({user:user})
+        return res.json({ users: user })
     } catch (error) {
-        return res.json({ error: error });  
+        return res.status(400).json({ error: error });  
     }
 })
 

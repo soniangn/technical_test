@@ -1,3 +1,4 @@
+// Requires ODM Mongoose
 const mongoose = require("mongoose");
 
 // Creates database Schema using mongoose
