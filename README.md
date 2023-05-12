@@ -1,7 +1,7 @@
 # API secured by registration/login
 
 ## Summary
-This is a user login and registration Rest API, developped with Node.js, ES6, Express and MongoDB. Mongoose is used as ODM library for MongoDB.
+This is a user login and registration API, developped with Node.js, ES6, Express and MongoDB. Mongoose is used as ODM library for MongoDB.
 bcrypt library is used for password encryption and jsonwebtoken is used to identify an authenticated user.
 
 ## Getting Started
