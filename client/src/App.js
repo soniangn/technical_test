@@ -1,29 +1,25 @@
-import './App.css';
-/*import CreateUser from './Components/CreateUser';
-import EditUser from './Components/EditUser';
-import DeleteUser from './Components/DeleteUser';
-import GetUser from './Components/GetUser';*/
-import AppRouter from './AppRouter';
+import { Routes, Route } from 'react-router-dom';
+import Home from './Components/Home';
+import Register from './Components/Register';
+import Login from './Components/Login';
+import Dashboard from './Components/Dashboard';
+import ProjectDashboard from './Components/ProjectDashboard';
+import NavBar from './Components/NavBar';
 
 
-function App() {
+const App = () => {
   return (
     <div>
-      <ul>
-        <li><a href="http://localhost:3000/home">Home</a></li>
-        <li><a href="http://localhost:3000/register">Register</a></li>
-        <li><a href="http://localhost:3000/login">Login</a></li>
-      </ul>
-      <AppRouter />
+      < NavBar />
+        <Routes>
+          <Route path="/" element={< Home />} />
+            <Route path="/register" element={< Register />} />
+            <Route path="/login" element={< Login />} />
+            <Route path="/users-dashboard" element={< Dashboard />} />
+            <Route path="/projects-dashboard" element={< ProjectDashboard />} />
+        </Routes>
     </div>
   );
 }
 
 export default App;
-
-/*
-<Route path="/create-user" element={< CreateUser />} />
-      <Route path="/edit-user" element={< EditUser />} />
-      <Route path="/delete-user" element={< DeleteUser />} />
-      <Route path="/get-user" element={< GetUser />} />
-*/

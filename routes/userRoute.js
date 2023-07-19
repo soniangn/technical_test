@@ -9,7 +9,6 @@ const router = express.Router();
 
 // Imports userModel
 const userModel = require("../models/userModel");
-const { ObjectId } = require('mongodb');
 
 // Requires environment variables
 require('dotenv').config()
@@ -82,7 +81,7 @@ router.get('/users', isAuthenticated, async (req, res) => {
 })
 
 // Creates an user
-router.post("/create", isAuthenticated, async (req, res) => {
+router.post("/create", async (req, res) => {
     try {
         // Checks that email and password are provided
         const { email, password } = req.body;
@@ -108,13 +107,13 @@ router.post("/create", isAuthenticated, async (req, res) => {
 });
 
 router.get('/:email', isAuthenticated, async (req, res) => {
-    const email = req.params.email;  
+    const email = req.params.email || req.body.email;  
     let result = await userModel.findOne({email: email});
     
     if (!result) {
-        res.send("User not found").status(404);
+        return res.status(404).json("User not found");
     } else {
-        res.send(result).status(200);
+        return res.send(result).status(200);
     }
 })
 

@@ -1,50 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import CreateUser from './CreateUser.jsx';
-import DeleteUser from './DeleteUser.jsx';
-import EditUser from './EditUser.jsx';
+import React from 'react';
+import AllUsers from './AllUsers.jsx';
+import { useNavigate } from 'react-router-dom';
 
-function Dashboard() {
-  const [users, setUsers] = useState([]);
 
-  const userToken = localStorage.getItem('token');
-
-  useEffect(() => {
-    const getAllUsers = async () => {
-      const response = await fetch('http://localhost:5000/api/users', {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": "Bearer " + userToken
-        }
-      })
-      const data = await response.json();
-      const userArray = data.users;
-
-      setUsers(userArray);
-    };
-    getAllUsers();
-  }, [])
-
-  const listUsers = (props) => {
-    return users.map((user) => {
-      return (
-        <ul key={user._id} className='flex justify-center w-full'>
-          <li className='flex flex-row items-center bg-white shadow-md p-5 m-5'>
-            <p className='mr-5'>{user.email}</p>
-            <DeleteUser email={user.email} token={userToken} />
-            <EditUser email={user.email} token={userToken} />
-          </li>
-        </ul>
-      )
-    })
-  }
+const Dashboard = () => {
 
   return (
-    <>
-      < CreateUser />
-      <div className='flex flex-col justify-between text-lg'>{listUsers()}</div>
-    </>
+    <div className='w-full bg-white'>
+      <div className='flex justify-center'>
+        <h2 className='text-xl font-bold text-gray-800 -ml-24 mb-10 uppercase'>Users List</h2>
+      </div>
+      <AllUsers />
+    </div>
   )
 }
 
-export default Dashboard
+export default Dashboard;

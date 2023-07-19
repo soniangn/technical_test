@@ -6,15 +6,15 @@ const UserSchema = new mongoose.Schema({
     email: {
         type: String,
         required: [true, "Please provide an Email!"],
-        unique: [true, "Email adress already exist"],
+        unique: [true, "Email adress already exist"]
     },
     
     password: {
         type: String,
-        required: [true, "Please provide a password"],
+        required: [true, "Please provide a password"]
     },
 })
 
-// Creates models
+// Creates model
 const userModel = mongoose.model('user', UserSchema);
 module.exports = userModel;

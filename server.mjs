@@ -2,6 +2,7 @@ import cors from "cors";
 import express from "express";
 import dotenv from "dotenv";
 import userRoute from './routes/userRoute.js';
+import projRoute from './routes/projRoute.js';
 import dbConnect from "./db/dbConnect.js";
 
 // Requires environment variables configuration
@@ -16,6 +17,7 @@ app.use(express.json());
 
 // Use routes
 app.use('/api', userRoute);
+app.use('/api', projRoute);
 
 // Listens to the server 
 app.listen(process.env.PORT, () => {

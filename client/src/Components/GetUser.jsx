@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export default function GetUser() {
+export const GetUser = () => {
   const [user, setUser] = useState({ id: "", email: "", password: "" });
   const [show, setShow] = useState(false);
 
@@ -27,20 +27,20 @@ export default function GetUser() {
 
   return (
     <div>
-      <div class="w-full max-w-xs">
-        <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+      <div className="w-full max-w-xs">
+        <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
           onSubmit={(e) => {
             e.preventDefault();
             handleClick()
           }}>
-          <div class="mb-4">
-            <label class="block text-gray-700 text-sm font-bold mb-2" htmlFor="id">
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="id">
               Enter the user ID to retrieve
             </label>
-            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="id" type="text" placeholder="User Id" onChange={(e) => updateForm({ id: e.target.value })} />
+            <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="id" type="text" placeholder="User Id" onChange={(e) => updateForm({ id: e.target.value })} />
           </div>
-          <div class="flex items-center justify-between">
-            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+          <div className="flex items-center justify-between">
+            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
               Retrieve User
             </button>
           </div>
