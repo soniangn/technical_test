@@ -33,12 +33,10 @@ const EditProject = (props) => {
   }, []);
 
   const saveModal = async (e) => {
-    console.log("form", form)
     const editProj = {
       projName: form.projName,
     };
-
-    await fetch(`http://localhost:5000/api/proj/${form.projName}`, {
+    await fetch(`http://localhost:5000/api/proj/${form._id}`, {
       method: 'PATCH',
       body: JSON.stringify(editProj),
       headers: {
@@ -80,6 +78,7 @@ const EditProject = (props) => {
                   handleClose();
                   e.preventDefault();
                   saveModal(e);
+                  props.onSave(form);
                 }}
                 action="#">
 

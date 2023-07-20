@@ -24,7 +24,7 @@ const AllUsers = () => {
       setUsers(userArray);
     };
     getAllUsers();
-  }, [users.length])
+  }, [users])
 
   const deleteUser = async (email) => {
     await fetch(`http://localhost:5000/api/${email}`, {
@@ -45,12 +45,17 @@ const AllUsers = () => {
           user={user}
           deleteUser={() => deleteUser(user.email)}
           token={userToken}
+          onSave={onSave}
         />
       )
     })
   }
 
   const handleCreate = (value) => {
+    setUsers((prev) => ([...prev, value]));
+  }
+
+  const onSave = (value) => {
     setUsers((prev) => ([...prev, value]));
   }
 

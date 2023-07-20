@@ -44,16 +44,17 @@ router.get('/proj/:name', async (req, res) => {
     }
 })
 
-router.patch('/proj/:name',  async (req, res) => {
-    const name = req.params.name;
-    console.log("🚀 ~ router.patch ~ name:", name)
+router.patch('/proj/:id',  async (req, res) => {
+    const id = req.params.id;
+    const name = req.body.projName
     
     const newData = {
         $set: {
             projName: name
         }
     };
-    const result = await projModel.updateOne({ projName: name }, newData);
+    const result = await projModel.updateOne({ _id: id }, newData);
+    
     res.send(result).status(200);
 })
 

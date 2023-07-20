@@ -9,6 +9,7 @@ const router = express.Router();
 
 // Imports userModel
 const userModel = require("../models/userModel");
+const { ObjectId } = require('mongodb');
 
 // Requires environment variables
 require('dotenv').config()
@@ -117,8 +118,8 @@ router.get('/:email', isAuthenticated, async (req, res) => {
     }
 })
 
-router.patch('/:email', isAuthenticated, async (req, res) => {
-    const email = req.params.email;
+router.patch('/:id', isAuthenticated, async (req, res) => {
+    const id = new ObjectId(req.params.id);
     const salt = await bcrypt.genSalt(10);
     const hashPassword = await bcrypt.hash(req.body.password, salt);
     req.body.password = hashPassword;
@@ -129,7 +130,7 @@ router.patch('/:email', isAuthenticated, async (req, res) => {
         }
     };
 
-    let result = await userModel.updateOne({email: email}, newData);
+    let result = await userModel.updateOne({_id: id}, newData);
     res.send(result).status(200);
 })
 

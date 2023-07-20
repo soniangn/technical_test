@@ -36,14 +36,13 @@ const EditUser = (props) => {
     fetchData();
   }, []);
 
-
   const saveModal = async (e) => {
     const editUser = {
       email: form.email,
       password: form.password
     };
 
-    await fetch(`http://localhost:5000/api/${form.email}`, {
+    const response = await fetch(`http://localhost:5000/api/${form._id}`, {
       method: 'PATCH',
       body: JSON.stringify(editUser),
       headers: {
@@ -51,6 +50,8 @@ const EditUser = (props) => {
         'Authorization': 'Bearer ' + props.token
       }
     });
+    const data = await response.json()
+    setForm(data);
   }
 
   return (
@@ -86,6 +87,7 @@ const EditUser = (props) => {
                   handleClose();
                   e.preventDefault();
                   saveModal(e);
+                  props.onSave(form);
                 }}
                 action="#">
 

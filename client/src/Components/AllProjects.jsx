@@ -20,15 +20,13 @@ const AllProjects = () => {
       setProjects(projectArray);
     };
     getAllProjects();
-  }, [projects.length])
-
-  console.log("projects", projects)
+  }, [projects])
 
   const deleteProject = async (name) => {
     await fetch(`http://localhost:5000/api/proj/${name}`, {
       method: "DELETE",
     });
-    const newListProjects = projects.filter((project) => project.name !== name);
+    const newListProjects = projects.filter((project) => project.projName !== name);
     setProjects(newListProjects);
   }
 
@@ -39,12 +37,17 @@ const AllProjects = () => {
           key={project._id}
           project={project}
           deleteProject={() => deleteProject(project.projName)}
+          onSave={onSave}
         />
       )
     })
   }
 
   const handleCreate = (value) => {
+    setProjects((prev) => ([...prev, value]));
+  }
+
+  const onSave = (value) => {
     setProjects((prev) => ([...prev, value]));
   }
 
