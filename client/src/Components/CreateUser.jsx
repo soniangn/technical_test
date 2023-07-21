@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const CreateUser = (props) => {
+const CreateUser = ({ onSave }) => {
   const [form, setForm] = useState({ email: "", password: "" });
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -59,7 +59,7 @@ const CreateUser = (props) => {
                 onSubmit={(e) => {
                   e.preventDefault();
                   onSubmit();
-                  props.onSave(form);
+                  onSave(form);
                 }}>
                 <div className="flex justify-around p-4 border-b rounded-t">
                   <h3 className="text-xl font-semibold"

@@ -32,6 +32,10 @@ const Project = ({ project, deleteProject, onSave }) => {
   )
 }
 
-Project.propTypes = { project: PropTypes.shape({}).isRequired, deleteProject: PropTypes.func.isRequired, onSave: PropTypes.func.isRequired }
+Project.propTypes = {
+  project: PropTypes.shape({}).isRequired,
+  deleteProject: PropTypes.func.isRequired,
+  onSave: PropTypes.func.isRequired
+}
 
 export default Project;

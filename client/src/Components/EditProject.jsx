@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 
 
-const EditProject = (props) => {
+const EditProject = ({ projName, onSave }) => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -17,7 +18,7 @@ const EditProject = (props) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/proj/${props.projName}`, {
+        const response = await fetch(`http://localhost:5000/api/proj/${projName}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -78,7 +79,7 @@ const EditProject = (props) => {
                   handleClose();
                   e.preventDefault();
                   saveModal(e);
-                  props.onSave(form);
+                  onSave(form);
                 }}
                 action="#">
 
@@ -112,3 +113,8 @@ const EditProject = (props) => {
 }
 
 export default EditProject;
+
+EditProject.propTypes = {
+  projName: PropTypes.string.isRequired,
+  onSave: PropTypes.func.isRequired
+}

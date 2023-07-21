@@ -1,8 +1,6 @@
-// Requires ODM Mongoose and environment variables configuration
 const mongoose = require("mongoose");
 require('dotenv').config()
 
-// Use of mongoose to connect the app to the database on mongoDB using the DB_URL
 async function dbConnect() {
     mongoose
     .connect(

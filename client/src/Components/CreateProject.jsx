@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
-const CreateProject = (props) => {
+
+const CreateProject = ({ onSave }) => {
   const [form, setForm] = useState({});
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -58,7 +60,7 @@ const CreateProject = (props) => {
                 onSubmit={(e) => {
                   e.preventDefault();
                   onSubmit();
-                  props.onSave(form);
+                  onSave(form);
                 }}>
                 <div className="flex justify-around p-4 border-b rounded-t">
                   <button type="button" onClick={handleClose} className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" data-modal-hide="defaultModal">
@@ -88,3 +90,7 @@ const CreateProject = (props) => {
 }
 
 export default CreateProject;
+
+CreateProject.propTypes = {
+  onSave: PropTypes.func.isRequired
+}

@@ -1,7 +1,8 @@
 import { React, useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 
 
-const EditUser = (props) => {
+const EditUser = ({ email, token, onSave }) => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -20,11 +21,11 @@ const EditUser = (props) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/user/${props.email}`, {
+        const response = await fetch(`http://localhost:5000/api/user/${email}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": "Bearer " + props.token
+            "Authorization": "Bearer " + token
           },
         })
         const data = await response.json();
@@ -47,7 +48,7 @@ const EditUser = (props) => {
       body: JSON.stringify(editUser),
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + props.token
+        'Authorization': 'Bearer ' + token
       }
     });
     const data = await response.json()
@@ -87,7 +88,7 @@ const EditUser = (props) => {
                   handleClose();
                   e.preventDefault();
                   saveModal(e);
-                  props.onSave(form);
+                  onSave(form);
                 }}
                 action="#">
 
@@ -123,7 +124,6 @@ const EditUser = (props) => {
                     className="bg-blue-500 hover:bg-blue-700 text-white transition-all ease-in hover:shadow-xs hover:-translate-y-px w-full font-medium rounded-lg text-sm px-5 py-2.5 text-center">Save</button>
                 </div>
               </form>
-
             </div>
           </div>
         </div>
@@ -133,3 +133,9 @@ const EditUser = (props) => {
 }
 
 export default EditUser;
+
+EditUser.propTypes = {
+  email: PropTypes.string.isRequired,
+  token: PropTypes.number.isRequired,
+  onSave: PropTypes.func.isRequired
+}

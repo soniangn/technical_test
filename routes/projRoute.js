@@ -1,13 +1,6 @@
 const express = require('express');
-const isAuthenticated = require('../middleware/auth');
-
-// Creates express router
 const router = express.Router();
-
-// Imports userModel
 const { Proj } = require("../models/projModel");
-
-// Requires environment variables
 require('dotenv').config()
 
 router.post("/create", async (req, res) => {

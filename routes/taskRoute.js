@@ -10,7 +10,6 @@ router.post("/:project_id/create", async ({ params, body }, res) => {
     const proj_id = params.project_id;
     const { TaskID, TaskName, StartDate, EndDate, Progress } = body;
    
-
     const task = new Task({
       TaskID: TaskID,
       TaskName: TaskName,
@@ -29,26 +28,10 @@ router.post("/:project_id/create", async ({ params, body }, res) => {
       }
     )
 
-    /*const tasks = await Proj.aggregate([
-      {
-        $match: { _id: proj_id }
-      },
-      {
-        $lookup: {
-          from: "Task",
-          localField: "tasks",
-          foreignField: "_id",
-          as: "listTasks"
-        },
-      }
-    ])
-    
-    const listTasks = tasks[0].tasks*/
-
     return res.status(200).json({ message: 'Task created successfully' });        
   } catch (error) {
     console.log(error)
-      res.status(400).send();
+    return res.status(400).send();
   }
 })
 
@@ -69,7 +52,7 @@ router.get("/:project_id", async (req, res) => {
     }
       return res.json({ tasks: ListTasks })
     } catch (error) {
-        return res.status(400).json({ error: error });  
+      return res.status(400).json({ error: error });  
     }
 })
 
@@ -90,10 +73,9 @@ router.get("/:project_id", async (req, res) => {
     }
       return res.json({ tasks: listTasks })
     } catch (error) {
-        return res.status(400).json({ error: error });  
+      return res.status(400).json({ error: error });  
     }
 })
-
 
 router.patch('/:project_id/:task_id', async (req, res) => {
     const task_id = req.params.task_id;
@@ -131,15 +113,14 @@ router.delete('/:project_id/:task_id', async (req, res) => {
   try {
     await Proj.updateMany(
       { _id: proj_id},
-      { $pull: { tasks: task_id} }
+      { $pull: { tasks: task_id }}
     )
     
     await Task.deleteOne({ _id: task_id })
+    return res.status(200).json({ message: 'Task deleted successfully'});
   } catch (error) {
       return res.status(400).json({ error: error });  
   }
-
-  res.status(200).json({ message: 'Task deleted successfully'});
 })
 
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import EditTask from './EditTask';
+import PropTypes from 'prop-types';
 
 
 export const Task = ({ project_id, task, deleteTask, onSave }) => {
@@ -24,4 +25,11 @@ export const Task = ({ project_id, task, deleteTask, onSave }) => {
       </li>
     </ul>
   )
+}
+
+Task.propTypes = {
+  project_id: PropTypes.number.isRequired,
+  task: PropTypes.shape({}).isRequired,
+  deleteTask: PropTypes.func.isRequired,
+  onSave: PropTypes.func.isRequired
 }

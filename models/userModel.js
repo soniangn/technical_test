@@ -1,7 +1,6 @@
 // Requires ODM Mongoose
 const mongoose = require("mongoose");
 
-// Creates database Schema using mongoose
 const UserSchema = new mongoose.Schema({
     email: {
         type: String,
@@ -15,6 +14,5 @@ const UserSchema = new mongoose.Schema({
     },
 })
 
-// Creates model
 const userModel = mongoose.model('user', UserSchema);
 module.exports = userModel;
