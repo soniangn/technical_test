@@ -52,7 +52,7 @@ const EditProject = (props) => {
         type="submit"
         onClick={handleShow}
       >
-        Edit Project
+        Edit Project Name
       </button>
       {show ? (
         <div id="defaultModal" tabIndex="-1" aria-hidden="true" className="fixed items-center justify-center mt-24 z-50 p-4 md:inset-0">

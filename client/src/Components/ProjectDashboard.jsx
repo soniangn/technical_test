@@ -6,7 +6,7 @@ const ProjectDashboard = () => {
     <>
       <div className='w-full bg-white' >
         <div className='flex justify-center'>
-          <h2 className='text-xl font-bold text-gray-800 mb-10 uppercase'>Project Dashboard</h2>
+          <h2 className='text-xl font-bold text-gray-800 mb-10 uppercase'>List of Projects</h2>
         </div>
         < AllProjects />
       </div>

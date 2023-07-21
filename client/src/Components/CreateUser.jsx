@@ -14,7 +14,7 @@ const CreateUser = (props) => {
 
   const onSubmit = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/create", {
+      const response = await fetch("http://localhost:5000/api/user/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -59,7 +59,7 @@ const CreateUser = (props) => {
                 onSubmit={(e) => {
                   e.preventDefault();
                   onSubmit();
-                  props.handleCreate(form);
+                  props.onSave(form);
                 }}>
                 <div className="flex justify-around p-4 border-b rounded-t">
                   <h3 className="text-xl font-semibold"

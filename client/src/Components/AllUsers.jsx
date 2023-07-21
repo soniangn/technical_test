@@ -10,7 +10,7 @@ const AllUsers = () => {
 
   useEffect(() => {
     const getAllUsers = async () => {
-      const response = await fetch('http://localhost:5000/api/users', {
+      const response = await fetch('http://localhost:5000/api/user/users', {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -27,7 +27,7 @@ const AllUsers = () => {
   }, [users])
 
   const deleteUser = async (email) => {
-    await fetch(`http://localhost:5000/api/${email}`, {
+    await fetch(`http://localhost:5000/api/user/${email}`, {
       method: "DELETE",
       headers: {
         "Authorization": "Bearer " + userToken
@@ -51,17 +51,13 @@ const AllUsers = () => {
     })
   }
 
-  const handleCreate = (value) => {
-    setUsers((prev) => ([...prev, value]));
-  }
-
   const onSave = (value) => {
     setUsers((prev) => ([...prev, value]));
   }
 
   return (
     <>
-      < CreateUser handleCreate={handleCreate} />
+      < CreateUser onSave={onSave} />
       <div className="mt-7 flex justify-center">
         <table className="w-2/3 mx-10 border border-gray-200">
           <thead className='bg-gray-50 h-10'>

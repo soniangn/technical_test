@@ -5,6 +5,7 @@ import Login from './Components/Login';
 import Dashboard from './Components/Dashboard';
 import ProjectDashboard from './Components/ProjectDashboard';
 import NavBar from './Components/NavBar';
+import TaskDashboard from './Components/TaskDashboard';
 
 
 const App = () => {
@@ -17,6 +18,7 @@ const App = () => {
             <Route path="/login" element={< Login />} />
             <Route path="/users-dashboard" element={< Dashboard />} />
             <Route path="/projects-dashboard" element={< ProjectDashboard />} />
+            <Route path="/tasks-dashboard/:id" element={< TaskDashboard />} />
         </Routes>
     </div>
   );

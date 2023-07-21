@@ -5,14 +5,14 @@ const isAuthenticated = require('../middleware/auth');
 const router = express.Router();
 
 // Imports userModel
-const projModel = require("../models/projModel");
+const { Proj } = require("../models/projModel");
 
 // Requires environment variables
 require('dotenv').config()
 
-router.post("/proj/create", async (req, res) => {
+router.post("/create", async (req, res) => {
   try {
-    const proj = new projModel(req.body);
+    const proj = new Proj(req.body);
     await proj.save();
     return res.status(200).json({ message: 'Project created successfully' });        
   } catch (error) {
@@ -21,9 +21,9 @@ router.post("/proj/create", async (req, res) => {
   }
 })
 
-router.get("/proj/all", async (req, res) => {
+router.get("/all", async (req, res) => {
   try {
-    const project = await projModel.find();
+    const project = await Proj.find();
     if (!project) {
       return res.json({ message:'No project found' })
     }
@@ -33,9 +33,9 @@ router.get("/proj/all", async (req, res) => {
     }
 })
 
-router.get('/proj/:name', async (req, res) => {
+router.get('/:name', async (req, res) => {
     const name = req.params.name;  
-    let result = await projModel.findOne({projName: name});
+    let result = await Proj.findOne({projName: name});
     
     if (!result) {
         res.send("Project not found").status(404);
@@ -44,7 +44,7 @@ router.get('/proj/:name', async (req, res) => {
     }
 })
 
-router.patch('/proj/:id',  async (req, res) => {
+router.patch('/:id',  async (req, res) => {
     const id = req.params.id;
     const name = req.body.projName
     
@@ -53,14 +53,14 @@ router.patch('/proj/:id',  async (req, res) => {
             projName: name
         }
     };
-    const result = await projModel.updateOne({ _id: id }, newData);
+    const result = await Proj.updateOne({ _id: id }, newData);
     
     res.send(result).status(200);
 })
 
-router.delete('/proj/:name', async (req, res) => {
+router.delete('/:name', async (req, res) => {
     const name = req.params.name;
-    const result = await projModel.deleteOne({ projName: name });
+    const result = await Proj.deleteOne({ projName: name });
     res.send(result).status(200);
 })
 

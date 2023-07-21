@@ -13,7 +13,7 @@ export const GetUser = () => {
   const id = user.id;
 
   const handleClick = async () => {
-    const response = await fetch(`http://localhost:5000/api/${id}`, {
+    const response = await fetch(`http://localhost:5000/api/user/${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json"

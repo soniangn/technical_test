@@ -43,17 +43,13 @@ const AllProjects = () => {
     })
   }
 
-  const handleCreate = (value) => {
-    setProjects((prev) => ([...prev, value]));
-  }
-
   const onSave = (value) => {
     setProjects((prev) => ([...prev, value]));
   }
 
   return (
     <>
-      < CreateProject handleCreate={handleCreate} />
+      < CreateProject onSave={onSave} />
       <div className="mt-7 flex justify-center">
         <table className="w-2/3 mx-10 border border-gray-200">
           <thead className='bg-gray-50 h-10'>

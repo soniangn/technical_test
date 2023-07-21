@@ -1,19 +1,26 @@
 // Requires ODM Mongoose
 const mongoose = require("mongoose");
 
-// Creates database Schema using mongoose
+const TaskSchema = new mongoose.Schema({
+  TaskID: { type: Number },
+  TaskName: { type: String },
+  StartDate: { type: Date }, 
+  EndDate: { type: Date }, 
+  Progress: { type: Number }
+  })
+
+const Task = mongoose.model('Task', TaskSchema);
+
 const ProjectSchema = new mongoose.Schema({
   projName: { type: String, required: true },
-  tasks: {
-    TaskID: { type: Number },
-    TaskName: { type: String },
-    StartDate: { type: Date }, 
-    EndDate: { type: Date }, 
-    Duration: { type: Number },
-    Progress: { type: Number }
-  }
-}, { collection: 'proj'})
+  tasks: [
+    { 
+      type: mongoose.Schema.Types.ObjectId, 
+      ref: 'Task'
+    }
+  ]
+})
 
-// Creates models
-const projModel = mongoose.model('proj', ProjectSchema);
-module.exports = projModel;
+
+const Proj = mongoose.model('Proj', ProjectSchema);
+module.exports = { Proj, Task };
