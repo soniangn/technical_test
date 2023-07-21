@@ -1,9 +1,13 @@
 import { GanttComponent, Inject, Edit, Toolbar, CriticalPath } from '@syncfusion/ej2-react-gantt';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import '../App.css';
-import GanttData from '../Data/GanttData';
+import { useParams } from 'react-router-dom';
+
 
 const Gantt = () => {
+  const [data, setData] = useState([]);
+  const { id } = useParams();
+
   const taskFields = {
     id: 'TaskID',
     name: 'TaskName',
@@ -20,10 +24,26 @@ const Gantt = () => {
     allowTaskbarEditing: true,
     showDeleteConfirmDialog: true
   };
+
   const toolbarOptions = ['CriticalPath'];
 
+  const projGantt = async () => {
+    const response = await fetch(`http://localhost:5000/gantt/${id}`, {
+      method: 'GET',
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+    const data = await response.json();
+    setData(data.tasks);
+  }
+
+  useEffect(() => {
+    projGantt();
+  }, [data])
+
   return (
-    <GanttComponent dataSource={GanttData} taskFields={taskFields} enableCriticalPath={true}
+    <GanttComponent dataSource={data} taskFields={taskFields} enableCriticalPath={true}
       editSettings={editOptions} toolbar={toolbarOptions} height='450px'>
       <Inject services={[Edit, CriticalPath, Toolbar]} />
     </GanttComponent>

@@ -6,6 +6,7 @@ import Dashboard from './Components/Dashboard';
 import ProjectDashboard from './Components/ProjectDashboard';
 import NavBar from './Components/NavBar';
 import TaskDashboard from './Components/TaskDashboard';
+import Gantt from './Components/Gantt';
 
 
 const App = () => {
@@ -19,6 +20,7 @@ const App = () => {
             <Route path="/users-dashboard" element={< Dashboard />} />
             <Route path="/projects-dashboard" element={< ProjectDashboard />} />
             <Route path="/tasks-dashboard/:id" element={< TaskDashboard />} />
+            <Route path="/gantt/:id" element={< Gantt />} />
         </Routes>
     </div>
   );

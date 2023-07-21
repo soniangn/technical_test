@@ -57,4 +57,15 @@ router.delete('/:name', async (req, res) => {
     res.send(result).status(200);
 })
 
+router.get('/:project_id', async(req, res) => {
+  const projId = req.params.project_id;
+
+  try {
+    const proj = await Proj.findOne({ _id: projId });
+    const tasksId = proj.tasks;
+  } catch(e) {
+    console.log(e)
+  }
+})
+
 module.exports = router;

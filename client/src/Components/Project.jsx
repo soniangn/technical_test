@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import EditProject from './EditProject';
 import ButtonTasks from './ButtonTasks';
+import ButtonGantt from './ButtonGantt';
 
 
 const Project = ({ project, deleteProject, onSave }) => {
@@ -14,6 +15,7 @@ const Project = ({ project, deleteProject, onSave }) => {
         <p>{projId}</p>
         <p>{projName}</p>
         <div className='flex flex-row'>
+          <ButtonGantt id={projId} />
           <ButtonTasks id={projId} name={projName} />
           <EditProject projName={projName} onSave={onSave} />
           <button
