@@ -9,7 +9,7 @@ export const Task = ({ project_id, task, deleteTask, onSave }) => {
         <p>{task.TaskID}</p>
         <p>{task.TaskName}</p>
         <div className='flex flex-row'>
-          <EditTask id={task._id} project_id={project_id} onSave={onSave} />
+          <EditTask task_id={task._id} project_id={project_id} onSave={onSave} />
           <button
             className="text-red-700 bg-red-100 py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             type="submit"

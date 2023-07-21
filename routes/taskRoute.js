@@ -1,14 +1,15 @@
 const express = require('express');
 const mongoose = require('mongoose');
-
 const router = express.Router();
 const { Proj, Task } = require("../models/projModel");
 require('dotenv').config()
+
 
 router.post("/:project_id/create", async ({ params, body }, res) => {
   try {
     const proj_id = params.project_id;
     const { TaskID, TaskName, StartDate, EndDate, Progress } = body;
+   
 
     const task = new Task({
       TaskID: TaskID,
@@ -98,6 +99,7 @@ router.patch('/:project_id/:task_id', async (req, res) => {
     const task_id = req.params.task_id;
 
     const { TaskID, TaskName, StartDate, EndDate, Progress } = req.body;
+
     const newData = {
         $set: {
             TaskID: TaskID,
@@ -107,7 +109,7 @@ router.patch('/:project_id/:task_id', async (req, res) => {
             Progress: Progress
         }
     };
-    const result = await Proj.updateOne({ _id: task_id}, newData);
+    const result = await Task.updateOne({ _id: task_id}, newData);
     res.send(result).status(200);
 })
 
