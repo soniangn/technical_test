@@ -10,7 +10,7 @@ const AllUsers = () => {
 
   useEffect(() => {
     const getAllUsers = async () => {
-      const response = await fetch('http://localhost:5000/api/user/users', {
+      const response = await fetch('http://localhost:5000/user/users', {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -27,7 +27,7 @@ const AllUsers = () => {
   }, [users])
 
   const deleteUser = async (email) => {
-    await fetch(`http://localhost:5000/api/user/${email}`, {
+    await fetch(`http://localhost:5000/user/${email}`, {
       method: "DELETE",
       headers: {
         "Authorization": "Bearer " + userToken

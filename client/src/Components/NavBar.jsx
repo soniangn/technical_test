@@ -1,6 +1,15 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../AuthContext";
+
 
 const NavBar = () => {
+  const { auth, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const logOut = () => {
+    logout();
+    navigate('/')
+  }
   return (
     <nav>
       <ul>
@@ -20,6 +29,7 @@ const NavBar = () => {
           <Link to="/projects-dashboard">Projects Dashboard</Link>
         </li>
       </ul>
+      {auth && <button onClick={logOut}>Log Out</button>}
     </nav>
   )
 }

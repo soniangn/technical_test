@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 
-const CreateUser = ({ onSave }) => {
-  const [form, setForm] = useState({ email: "", password: "" });
+
+const CreateTask = ({ onSave, id, getAllTasks }) => {
+  const [form, setForm] = useState({});
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -14,21 +15,20 @@ const CreateUser = ({ onSave }) => {
 
   const onSubmit = async () => {
     try {
-      const response = await fetch("http://localhost:5000/user/create", {
+      const response = await fetch(`http://localhost:5000/task/${id}/create`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(form)
       })
-      const data = await response.json()
-
     } catch (e) {
       console.error(e);
       throw new Error(e).message;
     };
-    setForm({ email: "", password: "" });
+    setForm({ TaskID: "", TaskName: "", StartDate: "", EndDate: "", Progress: "" });
     setShow(false);
+    getAllTasks();
   }
 
   return (
@@ -42,7 +42,7 @@ const CreateUser = ({ onSave }) => {
             <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
 
-          <span>Add User</span>
+          <span>Add Task</span>
         </button>
 
       </div>
@@ -72,21 +72,42 @@ const CreateUser = ({ onSave }) => {
                 </div>
 
                 <div className="my-4">
-                  <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
-                    Email
+                  <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="id">
+                    Id
                   </label>
-                  <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="text" value={form.email} placeholder="user@mail.com" onChange={(e) => updateForm({ email: e.target.value })} />
+                  <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="id" type="text" value={form.TaskID} onChange={(e) => updateForm({ TaskID: e.target.value })} />
                 </div>
-                <div className="mb-6">
-                  <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
-                    Password
+
+                <div className="my-4">
+                  <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
+                    Name
                   </label>
-                  <input className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" value={form.password} placeholder="******************" onChange={(e) => updateForm({ password: e.target.value })} />
-                  <p className="text-red-500 text-xs italic">Please choose a password</p>
+                  <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="name" type="text" value={form.TaskName} onChange={(e) => updateForm({ TaskName: e.target.value })} />
+                </div>
+
+                <div className="mb-6">
+                  <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="start-date">
+                    Start Date
+                  </label>
+                  <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="start-date" type="date" value={form.StartDate} onChange={(e) => updateForm({ StartDate: e.target.value })} />
+                </div>
+
+                <div className="mb-6">
+                  <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="end-date">
+                    End Date
+                  </label>
+                  <input className="shadow appearance-none border  rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="end-date" type="date" value={form.EndDate} onChange={(e) => updateForm({ EndDate: e.target.value })} />
+                </div>
+
+                <div className="mb-6">
+                  <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="progress">
+                    Progress
+                  </label>
+                  <input className="shadow appearance-none border  rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="progress" type="text" value={form.Progress} onChange={(e) => updateForm({ Progress: e.target.value })} />
                 </div>
                 <div className="flex items-center justify-between">
                   <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
-                    Create User
+                    Create Task
                   </button>
                 </div>
               </form>
@@ -98,4 +119,4 @@ const CreateUser = ({ onSave }) => {
   )
 }
 
-export default CreateUser;
+export default CreateTask

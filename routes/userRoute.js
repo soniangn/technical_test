@@ -1,6 +1,5 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
-const isAuthenticated = require('../middleware/auth');
 
 const router = express.Router();
 
@@ -9,7 +8,7 @@ const { ObjectId } = require('mongodb');
 
 require('dotenv').config()
 
-router.get('/users', isAuthenticated, async (req, res) => {
+router.get('/users', async (req, res) => {
     try {
         const user = await userModel.find();
         if (!user) {
@@ -45,7 +44,7 @@ router.post("/create", async (req, res) => {
     }
 });
 
-router.get('/:email', isAuthenticated, async (req, res) => {
+router.get('/:email', async (req, res) => {
     const email = req.params.email || req.body.email;  
     let result = await userModel.findOne({email: email});
     
@@ -56,7 +55,7 @@ router.get('/:email', isAuthenticated, async (req, res) => {
     }
 })
 
-router.patch('/:id', isAuthenticated, async (req, res) => {
+router.patch('/:id', async (req, res) => {
     const id = new ObjectId(req.params.id);
     const salt = await bcrypt.genSalt(10);
     const hashPassword = await bcrypt.hash(req.body.password, salt);
@@ -72,7 +71,7 @@ router.patch('/:id', isAuthenticated, async (req, res) => {
     res.send(result).status(200);
 })
 
-router.delete('/:email', isAuthenticated, async (req, res) => {
+router.delete('/:email', async (req, res) => {
     const email = req.params.email;
     let result = await userModel.deleteOne({email: email});
 

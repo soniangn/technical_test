@@ -21,7 +21,7 @@ const EditUser = ({ email, token, onSave }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/user/${email}`, {
+        const response = await fetch(`http://localhost:5000/user/${email}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -43,7 +43,7 @@ const EditUser = ({ email, token, onSave }) => {
       password: form.password
     };
 
-    const response = await fetch(`http://localhost:5000/api/user/${form._id}`, {
+    const response = await fetch(`http://localhost:5000/user/${form._id}`, {
       method: 'PATCH',
       body: JSON.stringify(editUser),
       headers: {
@@ -111,7 +111,6 @@ const EditUser = ({ email, token, onSave }) => {
                       id="url"
                       name="url"
                       type="text"
-                      value={form.password || ''}
                       contentEditable="true"
                       onChange={(e) => updateForm({ password: e.target.value })}
                     />

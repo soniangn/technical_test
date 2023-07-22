@@ -7,7 +7,7 @@ const AllProjects = () => {
 
   useEffect(() => {
     const getAllProjects = async () => {
-      const response = await fetch('http://localhost:5000/api/proj/all', {
+      const response = await fetch('http://localhost:5000/proj/all', {
         method: "GET",
         headers: {
           "Content-Type": "application/json"
@@ -23,7 +23,7 @@ const AllProjects = () => {
   }, [projects])
 
   const deleteProject = async (name) => {
-    await fetch(`http://localhost:5000/api/proj/${name}`, {
+    await fetch(`http://localhost:5000/proj/${name}`, {
       method: "DELETE",
     });
     const newListProjects = projects.filter((project) => project.projName !== name);

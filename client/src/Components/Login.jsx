@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import { useAuth } from '../AuthContext';
 
 const Login = () => {
   const [form, setForm] = useState({
@@ -9,32 +9,25 @@ const Login = () => {
   })
 
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const updateForm = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value })
   }
 
+  const user = {
+    email: form.email,
+    password: form.password
+  }
+
   const handleSubmit = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/login', {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(form)
-      })
+      const response = await login(user);
 
-      const data = await response.json()
-      const userToken = data.token;
-      localStorage.setItem('token', userToken);
-
-      if (response.ok) {
-        navigate('/users-dashboard');
-      }
-    } catch (e) {
-      console.error(e);
-      throw new Error(e).message;
-    };
+      if (response.token) navigate('/users-dashboard')
+    } catch (error) {
+      console.error('error', error)
+    }
   }
 
   return (

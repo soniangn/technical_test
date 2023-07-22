@@ -18,7 +18,7 @@ const EditProject = ({ projName, onSave }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/proj/${projName}`, {
+        const response = await fetch(`http://localhost:5000/proj/${projName}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -37,7 +37,7 @@ const EditProject = ({ projName, onSave }) => {
     const editProj = {
       projName: form.projName,
     };
-    await fetch(`http://localhost:5000/api/proj/${form._id}`, {
+    await fetch(`http://localhost:5000/proj/${form._id}`, {
       method: 'PATCH',
       body: JSON.stringify(editProj),
       headers: {

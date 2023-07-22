@@ -40,7 +40,7 @@ const Gantt = () => {
 
   useEffect(() => {
     projGantt();
-  }, [data])
+  }, [])
 
   return (
     <GanttComponent dataSource={data} taskFields={taskFields} enableCriticalPath={true}

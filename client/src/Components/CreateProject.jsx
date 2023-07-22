@@ -16,7 +16,7 @@ const CreateProject = ({ onSave }) => {
 
   const onSubmit = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/proj/create", {
+      const response = await fetch("http://localhost:5000/proj/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
