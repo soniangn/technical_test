@@ -1,7 +1,10 @@
-const express = require('express');
-const router = express.Router();
-const { Proj, Task } = require("../models/projModel");
-require('dotenv').config()
+import Express from 'express';
+import { Proj } from '../models/projModel.js';
+import dotenv from 'dotenv';
+dotenv.config();
+
+
+const router = Express.Router();
 
 router.get('/:project_id', async(req, res) => {
   const projId = req.params.project_id;
@@ -23,4 +26,4 @@ router.get('/:project_id', async(req, res) => {
   }
 })
 
-module.exports = router;
+export default router;

@@ -1,5 +1,6 @@
 // Requires ODM Mongoose
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
+
 
 const TaskSchema = new mongoose.Schema({
   TaskID: { type: Number },
@@ -9,7 +10,7 @@ const TaskSchema = new mongoose.Schema({
   Progress: { type: Number }
   })
 
-const Task = mongoose.model('Task', TaskSchema);
+export const Task = mongoose.model('Task', TaskSchema);
 
 const ProjectSchema = new mongoose.Schema({
   projName: { type: String, required: true },
@@ -21,6 +22,5 @@ const ProjectSchema = new mongoose.Schema({
   ]
 })
 
+export const Proj = mongoose.model('Proj', ProjectSchema);
 
-const Proj = mongoose.model('Proj', ProjectSchema);
-module.exports = { Proj, Task };

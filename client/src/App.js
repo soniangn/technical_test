@@ -1,13 +1,13 @@
 import { Routes, Route } from 'react-router-dom';
-import Home from './Components/Home';
-import Register from './Components/Register';
-import Login from './Components/Login';
-import Dashboard from './Components/Dashboard';
-import ProjectDashboard from './Components/ProjectDashboard';
-import NavBar from './Components/NavBar';
-import TaskDashboard from './Components/TaskDashboard';
-import Gantt from './Components/Gantt';
-import { AuthProvider } from './AuthContext';
+import Home from './Components/Home.jsx';
+import Register from './Components/Register.jsx';
+import Login from './Components/Login.jsx';
+import Dashboard from './Components/Dashboard.jsx';
+import ProjectDashboard from './Components/ProjectDashboard.jsx';
+import NavBar from './Components/NavBar.jsx';
+import TaskDashboard from './Components/TaskDashboard.jsx';
+import Gantt from './Components/Gantt.jsx';
+import { AuthProvider } from './AuthContext.js';
 import RequireAuth from './RequireAuth.js';
 
 

@@ -1,9 +1,12 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const router = express.Router();
-const { Proj, Task } = require("../models/projModel");
-require('dotenv').config()
+import express from 'express';
+import mongoose from 'mongoose';
+import { Task } from '../models/projModel.js';
+import { Proj } from '../models/projModel.js';
+import dotenv from 'dotenv';
+dotenv.config();
 
+
+const router = express.Router();
 
 router.post("/:project_id/create", async ({ params, body }, res) => {
   try {
@@ -124,4 +127,4 @@ router.delete('/:project_id/:task_id', async (req, res) => {
 })
 
 
-module.exports = router;
+export default router;

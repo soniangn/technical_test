@@ -1,7 +1,10 @@
-const express = require('express');
+import express from 'express';
+import { Proj } from '../models/projModel.js';
+import dotenv from 'dotenv';
+dotenv.config();
+
+
 const router = express.Router();
-const { Proj } = require("../models/projModel");
-require('dotenv').config()
 
 router.post("/create", async (req, res) => {
   try {
@@ -68,4 +71,4 @@ router.get('/:project_id', async(req, res) => {
   }
 })
 
-module.exports = router;
+export default router;

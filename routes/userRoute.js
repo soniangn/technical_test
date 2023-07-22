@@ -1,12 +1,12 @@
-const express = require('express');
-const bcrypt = require('bcrypt');
+import express from 'express';
+import bcrypt from 'bcrypt';
+import { ObjectId } from 'mongodb';
+import dotenv from 'dotenv';
+dotenv.config();
+import userModel from '../models/userModel.js';
+
 
 const router = express.Router();
-
-const userModel = require("../models/userModel");
-const { ObjectId } = require('mongodb');
-
-require('dotenv').config()
 
 router.get('/users', async (req, res) => {
     try {
@@ -78,4 +78,4 @@ router.delete('/:email', async (req, res) => {
     res.send(result).status(200);
 })
 
-module.exports = router;
+export default router;
