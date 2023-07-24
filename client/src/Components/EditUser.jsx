@@ -1,5 +1,6 @@
 import { React, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useAuth } from '../AuthContext';
 
 
 const EditUser = ({ email, token, onSave }) => {
@@ -18,22 +19,19 @@ const EditUser = ({ email, token, onSave }) => {
     });
   }
 
+  const { dispatchAPI } = useAuth();
+
+  const fetchData = async () => {
+    try {
+      const response = await dispatchAPI(`user/${email}`, "GET");
+      const data = await response.json();
+      setForm(data);
+    } catch (error) {
+      console.log(error)
+    }
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(`http://localhost:5000/user/${email}`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer " + token
-          },
-        })
-        const data = await response.json();
-        setForm(data);
-      } catch (error) {
-        console.log(error)
-      }
-    };
     fetchData();
   }, []);
 
@@ -43,14 +41,7 @@ const EditUser = ({ email, token, onSave }) => {
       password: form.password
     };
 
-    const response = await fetch(`http://localhost:5000/user/${form._id}`, {
-      method: 'PATCH',
-      body: JSON.stringify(editUser),
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + token
-      }
-    });
+    const response = await dispatchAPI(`user/${form._id}`, "PATCH", JSON.stringify(editUser));
     const data = await response.json()
     setForm(data);
   }

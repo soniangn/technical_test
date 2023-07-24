@@ -26,7 +26,7 @@ const Login = () => {
 
       if (response.token) navigate('/users-dashboard')
     } catch (error) {
-      console.error('error', error)
+      console.error('error:', error)
     }
   }
 

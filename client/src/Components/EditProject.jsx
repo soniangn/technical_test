@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-
+import { useAuth } from '../AuthContext';
 
 const EditProject = ({ projName, onSave }) => {
   const [show, setShow] = useState(false);
@@ -15,21 +15,20 @@ const EditProject = ({ projName, onSave }) => {
     });
   }
 
+  const { dispatchAPI } = useAuth();
+
+  const fetchData = async () => {
+    try {
+      const response = await dispatchAPI(`proj/${projName}`, "GET")
+      const data = await response.json();
+
+      setForm(data.proj);
+    } catch (error) {
+      console.log(error)
+    }
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(`http://localhost:5000/proj/${projName}`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
-        const data = await response.json();
-        setForm(data);
-      } catch (error) {
-        console.log(error)
-      }
-    };
     fetchData();
   }, []);
 
@@ -37,13 +36,7 @@ const EditProject = ({ projName, onSave }) => {
     const editProj = {
       projName: form.projName,
     };
-    await fetch(`http://localhost:5000/proj/${form._id}`, {
-      method: 'PATCH',
-      body: JSON.stringify(editProj),
-      headers: {
-        'Content-Type': 'application/json',
-      }
-    });
+    await dispatchAPI(`proj/${form._id}`, "PATCH", JSON.stringify(editProj));
   }
 
   return (

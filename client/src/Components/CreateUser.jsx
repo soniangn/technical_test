@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useAuth } from '../AuthContext';
 
 const CreateUser = ({ onSave }) => {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -12,17 +13,11 @@ const CreateUser = ({ onSave }) => {
     });
   }
 
+  const { dispatchAPI } = useAuth();
+
   const onSubmit = async () => {
     try {
-      const response = await fetch("http://localhost:5000/user/create", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(form)
-      })
-      const data = await response.json()
-
+      await dispatchAPI('user/create', "POST", JSON.stringify(form));
     } catch (e) {
       console.error(e);
       throw new Error(e).message;

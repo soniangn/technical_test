@@ -2,7 +2,7 @@ import { GanttComponent, Inject, Edit, Toolbar, CriticalPath } from '@syncfusion
 import React, { useEffect, useState } from 'react';
 import '../App.css';
 import { useParams } from 'react-router-dom';
-
+import { useAuth } from '../AuthContext';
 
 const Gantt = () => {
   const [data, setData] = useState([]);
@@ -27,13 +27,10 @@ const Gantt = () => {
 
   const toolbarOptions = ['CriticalPath'];
 
+  const { dispatchAPI } = useAuth();
+
   const projGantt = async () => {
-    const response = await fetch(`http://localhost:5000/gantt/${id}`, {
-      method: 'GET',
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
+    const response = await dispatchAPI(`gantt/${id}`, "GET");
     const data = await response.json();
     setData(data.tasks);
   }

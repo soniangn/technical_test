@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useAuth } from '../AuthContext';
+
 
 
 const EditTask = ({ project_id, task_id, onSave }) => {
@@ -20,14 +22,11 @@ const EditTask = ({ project_id, task_id, onSave }) => {
     });
   }
 
+  const { dispatchAPI } = useAuth();
+
   const fetchData = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/task/${project_id}/${task_id}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
+      const response = await dispatchAPI(`task/${project_id}/${task_id}`, "GET");
       const data = await response.json();
       const task = data.task;
       setForm(task);
@@ -49,13 +48,7 @@ const EditTask = ({ project_id, task_id, onSave }) => {
       Progress: form.Progress
     };
 
-    await fetch(`http://localhost:5000/task/${project_id}/${task_id}`, {
-      method: 'PATCH',
-      body: JSON.stringify(editTask),
-      headers: {
-        'Content-Type': 'application/json',
-      }
-    });
+    await dispatchAPI(`task/${project_id}/${task_id}`, "PATCH", JSON.stringify(editTask));
   }
 
   return (

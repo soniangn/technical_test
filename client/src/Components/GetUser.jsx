@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useAuth } from '../AuthContext';
 
 export const GetUser = () => {
   const [user, setUser] = useState({ id: "", email: "", password: "" });
@@ -12,14 +13,10 @@ export const GetUser = () => {
 
   const id = user.id;
 
-  const handleClick = async () => {
-    const response = await fetch(`http://localhost:5000/user/${id}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
+  const { dispatchAPI } = useAuth();
 
+  const handleClick = async () => {
+    const response = await dispatchAPI(`user/${id}`, "GET");
     const data = await response.json();
     updateForm(data);
     setShow(true);

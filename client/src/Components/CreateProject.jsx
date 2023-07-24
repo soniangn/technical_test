@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useAuth } from '../AuthContext';
 
 
-const CreateProject = ({ onSave }) => {
+const CreateProject = ({ onSave, id }) => {
   const [form, setForm] = useState({});
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -14,20 +15,11 @@ const CreateProject = ({ onSave }) => {
     });
   }
 
+  const { dispatchAPI } = useAuth();
+
   const onSubmit = async () => {
-    try {
-      const response = await fetch("http://localhost:5000/proj/create", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ ...form })
-      })
-      const data = await response.json()
-    } catch (e) {
-      console.error(e);
-      throw new Error(e).message;
-    };
+    await dispatchAPI('proj/create', "POST", JSON.stringify(form))
+
     setForm({ projName: "" });
     setShow(false);
   }

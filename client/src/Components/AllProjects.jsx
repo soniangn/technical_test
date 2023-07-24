@@ -1,31 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import CreateProject from './CreateProject';
 import Project from './Project';
+import { useAuth } from '../AuthContext';
 
-const AllProjects = () => {
+const AllProjects = ({ id }) => {
   const [projects, setProjects] = useState([]);
 
+  const { dispatchAPI } = useAuth();
+
+  const getAllProjects = async () => {
+
+    const response = await dispatchAPI('proj/all', "GET")
+    const data = await response.json();
+    const projectArray = data.projects;
+
+    setProjects(projectArray);
+  };
+
   useEffect(() => {
-    const getAllProjects = async () => {
-      const response = await fetch('http://localhost:5000/proj/all', {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json"
-        }
-      })
-      const data = await response.json();
-
-      const projectArray = data.projects;
-
-      setProjects(projectArray);
-    };
     getAllProjects();
   }, [projects])
 
   const deleteProject = async (name) => {
-    await fetch(`http://localhost:5000/proj/${name}`, {
-      method: "DELETE",
-    });
+    await dispatchAPI(`proj/${name}`, "DELETE")
+
     const newListProjects = projects.filter((project) => project.projName !== name);
     setProjects(newListProjects);
   }

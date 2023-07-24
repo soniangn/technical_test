@@ -2,18 +2,16 @@ import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 import { Task } from './Task';
 import CreateTask from './CreateTask';
+import { useAuth } from '../AuthContext.js';
 
 
 const AllTasks = ({ id }) => {
     const [tasks, setTasks] = useState([]);
 
+    const { dispatchAPI } = useAuth();
+
     const getAllTasks = async () => {
-        const response = await fetch(`http://localhost:5000/task/${id}`, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
+        const response = await dispatchAPI(`task/${id}`, "GET")
         const data = await response.json();
         const taskArray = data.tasks;
 
@@ -25,9 +23,8 @@ const AllTasks = ({ id }) => {
     }, [tasks, id]);
 
     const deleteTask = async (task_id) => {
-        await fetch(`http://localhost:5000/task/${id}/${task_id}`, {
-            method: "DELETE",
-        });
+        await dispatchAPI(`task/${id}/${task_id}`, "DELETE")
+
         const newListTasks = tasks.filter((task) => task._id !== task_id);
         setTasks(newListTasks);
     }

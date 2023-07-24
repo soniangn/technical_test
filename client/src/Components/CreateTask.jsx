@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useAuth } from '../AuthContext';
 
 
 const CreateTask = ({ onSave, id, getAllTasks }) => {
@@ -13,19 +14,11 @@ const CreateTask = ({ onSave, id, getAllTasks }) => {
     });
   }
 
+  const { dispatchAPI } = useAuth();
+
   const onSubmit = async () => {
-    try {
-      const response = await fetch(`http://localhost:5000/task/${id}/create`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(form)
-      })
-    } catch (e) {
-      console.error(e);
-      throw new Error(e).message;
-    };
+    await dispatchAPI(`task/${id}/create`, "POST", JSON.stringify(form));
+
     setForm({ TaskID: "", TaskName: "", StartDate: "", EndDate: "", Progress: "" });
     setShow(false);
     getAllTasks();

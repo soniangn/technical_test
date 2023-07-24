@@ -23,6 +23,6 @@ const ButtonTasks = ({ id, name }) => {
 export default ButtonTasks;
 
 ButtonTasks.propTypes = {
-    id: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired
 }

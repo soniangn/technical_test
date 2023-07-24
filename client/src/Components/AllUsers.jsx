@@ -1,38 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import User from './User.jsx';
 import CreateUser from './CreateUser.jsx';
-
+import { useAuth } from '../AuthContext.js';
 
 const AllUsers = () => {
   const [users, setUsers] = useState([]);
-
   const userToken = localStorage.getItem('token');
 
+  const { dispatchAPI } = useAuth();
+
+  const getAllUsers = async () => {
+    const response = await dispatchAPI('user/users', "GET")
+    const data = await response.json();
+
+    const userArray = data.users;
+
+    setUsers(userArray);
+  };
+
   useEffect(() => {
-    const getAllUsers = async () => {
-      const response = await fetch('http://localhost:5000/user/users', {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": "Bearer " + userToken
-        }
-      })
-      const data = await response.json();
-
-      const userArray = data.users;
-
-      setUsers(userArray);
-    };
     getAllUsers();
   }, [users])
 
   const deleteUser = async (email) => {
-    await fetch(`http://localhost:5000/user/${email}`, {
-      method: "DELETE",
-      headers: {
-        "Authorization": "Bearer " + userToken
-      }
-    });
+    await dispatchAPI(`user/${email}`, "DELETE")
     const newListUsers = users.filter((user) => user.email !== email);
     setUsers(newListUsers);
   }

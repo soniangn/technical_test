@@ -28,7 +28,7 @@ export const Task = ({ project_id, task, deleteTask, onSave }) => {
 }
 
 Task.propTypes = {
-  project_id: PropTypes.number.isRequired,
+  project_id: PropTypes.string.isRequired,
   task: PropTypes.shape({}).isRequired,
   deleteTask: PropTypes.func.isRequired,
   onSave: PropTypes.func.isRequired

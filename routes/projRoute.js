@@ -36,7 +36,7 @@ router.get('/:name', async (req, res) => {
     if (!result) {
         res.send("Project not found").status(404);
     } else {
-        res.send(result).status(200);
+        res.status(200).json({ proj: result });
     }
 })
 

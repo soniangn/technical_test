@@ -1,10 +1,26 @@
-import { createContext, useContext, useMemo, useState } from "react";
+import React, { createContext, useContext, useMemo, useState } from "react";
 
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [auth, setAuth] = useState(false)
+  const [auth, setAuth] = useState(false);
+
+  const dispatchAPI = async (route, method, body) => {
+    try {
+      const result = await fetch(`http://localhost:5000/${route}`, {
+        method,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body
+      });
+      return result
+    } catch (e) {
+      console.error(e);
+      throw new Error(e).message;
+    };
+  };
 
   const login = async (user) => {
     try {
@@ -38,7 +54,8 @@ export const AuthProvider = ({ children }) => {
   const value = useMemo(() => ({
     auth,
     login,
-    logout
+    logout,
+    dispatchAPI
   }),
   [auth]
   )
